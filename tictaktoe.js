@@ -4,6 +4,7 @@ let newgame = document.querySelector("#newbtn");
 let msgCont = document.querySelector(".mess-cont");
 let mess = document.querySelector("#msg");
 let turnO = true;
+let count=0;
 
 const winnpatterns = [
     [0, 1, 2],
@@ -28,6 +29,7 @@ boxes.forEach((box) => {
             turnO = true;
         }
         box.disabled = true;
+        count++;
         checkWinner();
     });
 });
@@ -57,12 +59,19 @@ const checkWinner = () => {
             if (postval1 === postval2 && postval2 === postval3) {
                 console.log("winner", postval1);
                 showwinner(postval1);
+                return;
             }
         }
+    }
+     // ✅ draw condition
+     if (count === 9) {
+        msg.innerText = "It's a Draw!";
+        msgCont.classList.remove("hide");
     }
 };
 const resetGame = () => {
     turnO = true;
+    count=0;
     enablebtns();
     msgCont.classList.add("hide");
 };
